@@ -27,10 +27,12 @@ function createWindow () {
     }
   })
 
-  // and load the index.html of the app.
+  // and load the index.hASDAtml of the app.
   mainWindow.loadURL('file://' + __dirname + '/index.html');
 
-  // Open the DevTools.
+  mainWindow.openDevTools();
+
+  // Open thead qfdQF DevTools.
   // mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.

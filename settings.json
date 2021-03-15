@@ -2,11 +2,12 @@
   "multiplePoses":true,
   "useTestImage":false,
   "audioHack":true,
+  "minConfidence": "0.5",
   "host":"localhost",
   "port":"9527",
   "format":"ARR",
   "poseNetConig":{
-    "architecture": "MobileNetV1",
+    "architecture": "ResNet50",
     "outputStride": 16,
     "inputResolution": 257,
     "multiplier": 0.75

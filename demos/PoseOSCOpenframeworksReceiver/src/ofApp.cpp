@@ -58,7 +58,7 @@ void ofApp::draw(){
 			ofDrawLine(p0,p1);
 		}
 	}
-	ofDrawBitmapStringHighlight("FPS:"+ofToString(fpsCounter.getFps()),10,50);
+	ofDrawBitmapStringHighlight("FPS:"+ofToString(50),10,50);
     fpsCounter.newFrame();
 }
 

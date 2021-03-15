@@ -25,6 +25,7 @@ function openOSC(){
 
 openOSC()
 
+console.log("WTF")
 
 
 var camera = document.getElementById('camera');
@@ -137,7 +138,27 @@ function generateGUI(){
       })();
       d.appendChild(lbl);
       d.appendChild(inp);
+    }else if (typeof (settings[k]) == 'float'){
+      var inp = document.createElement("input");
+      inp.value = settings[k];
+      inp.style.backgroundColor = "rgba(0,0,0,0.3)";
+      inp.style.color = "white";
+      inp.style.fontFamily = "monospace";
+      inp.style.border = "1px solid black";
+
+      ;(function(){
+        var _k = k;
+        var _inp = inp;
+        _inp.onkeypress = function(){
+          if (event.key == "Enter"){
+            settings[_k] = parseFloat(_inp.value);
+          }
+        }
+      })();
+      d.appendChild(lbl);
+      d.appendChild(inp);
     }
+
     d.style.borderBottom = "1px solid black";
     div.appendChild(d);
   }
@@ -152,12 +173,15 @@ generateGUI();
 
 function drawPose(pose,color="white"){
   var ctx = debugCanvas.getContext('2d');
+  const minConf = settings.minConfidence
   for (var i = 0; i < pose.keypoints.length; i++){
+    if (pose.keypoints[i].score >= minConf){
     var p = pose.keypoints[i].position
     ctx.fillStyle=color;
     ctx.fillRect(p.x-5,p.y-5,10,10);
     ctx.fillStyle="yellow";
     ctx.fillText(("0"+i).substr(-2)+" "+pose.keypoints[i].part,p.x+5,p.y-5);
+    }
   }
   const adj = [
     [0,1],[0,2],[1,3],[2,4],        //face
@@ -165,9 +189,9 @@ function drawPose(pose,color="white"){
     [5,7],[7,9],[6,8],[8,10],       //arms
     [11,13],[13,15],[12,14],[14,16],//legs
   ]
-  const minConf = 0.5
   adj.forEach(([i,j]) => {
-    if (pose.keypoints[i] < minConf || pose.keypoints[j] < minConf ){
+    // console.log(pose.keypoints[i])
+    if (pose.keypoints[i].score < minConf || pose.keypoints[j].score < minConf ){
       return;
     }
     ctx.beginPath();
@@ -269,11 +293,11 @@ async function estimateFrame() {
   var poses = [];
   if (settings.multiplePoses){
     poses = await net.estimateMultiplePoses(inputCanvas, {
-      flipHorizontal: false
+      flipHorizontal: false,
     });
   }else{
     poses[0]= await net.estimateSinglePose(inputCanvas, {
-      flipHorizontal: false
+      flipHorizontal: false,
     });
   }
 
