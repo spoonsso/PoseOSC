@@ -1,8 +1,8 @@
 {
-  "multiplePoses":true,
+  "multiplePoses":false,
   "useTestImage":false,
-  "audioHack":true,
-  "minConfidence": "0.5",
+  "audioHack":false,
+  "minConfidence": "0.7",
   "host":"localhost",
   "port":"9527",
   "format":"ARR",
