@@ -220,7 +220,7 @@ function sendPosesADDR(poses){
 }
 
 function sendPosesARR(poses){
-  var arr = ["/poses/arr"]
+  var arr = [settings.streamAddress];//["/poses/arr"]
   arr.push(camera.videoWidth);
   arr.push(camera.videoHeight);
   arr.push(poses.length);

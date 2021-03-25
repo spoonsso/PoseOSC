@@ -4,8 +4,9 @@
   "audioHack":false,
   "minConfidence": "0.7",
   "host":"localhost",
-  "port":"9527",
+  "port":"1234",
   "format":"ARR",
+  "streamAddress": "/poses/arr",
   "poseNetConig":{
     "architecture": "ResNet50",
     "outputStride": 16,
